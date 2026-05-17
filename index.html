@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSUN Map Quiz</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>\
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+
+  <!-- flash overlay  feedback -->
+  <div id="flash"></div>
+
+  <!--  header  -->
+  <header>
+    <h1>CSUN MAP QUIZ <span>// COMP 484</span></h1>
+    <div class="hud">
+      <!-- ec: timer starts when game loads > stops when all 5 answered -->
+      <div class="badge">⏱ <span id="timer-display">00:00</span></div>
+
+      <!-- ec: high score -->
+      <div class="badge">🏆 Best: <span id="hs-display">--</span></div>
+    </div>
+  </header>
+
+  <!--  main -->
+  <div class="main">
+
+    <div class="panel">
+      <h2>Double-click the location</h2>
+
+      <div class="prompt-box" id="prompt-box">
+        <div class="label">Find this building</div>
+        <div class="question" id="current-question">Loading...</div>
+      </div>
+
+      <div class="q-counter" id="q-counter">Question 1 of 5</div>
+      <div class="log" id="log"></div>
+
+      <!-- final score -->
+      <div id="score-card">
+        <div class="score-big" id="score-big">--</div>
+        <div class="score-sub" id="score-sub">out of 5 correct</div>
+        
+        <!-- ec: timer) -->
+        <div class="time-final" id="time-final"></div>
+        <button id="restart-btn">Play Again</button>
+      </div>
+
+      <!-- high score -->
+      <div class="hs-section">
+        <h3>🏆 High Scores</h3>
+        <div class="hs-list" id="hs-list">
+          <div class="hs-entry" style="color:var(--muted); font-size:0.75rem;">No scores yet</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="map"></div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- google maps js api -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc7xuEePLR2IuCAcTVZVunYdtdtiXG7E0&callback=initMap"
+    async defer>
+  </script>
+
+</body>
+</html>
