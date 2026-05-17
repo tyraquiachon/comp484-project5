@@ -3,50 +3,50 @@ var LOCATIONS = [
     // assigned location (campus map grid: c5)
     name: "Charles H. Noski Auditorium",
     bounds: {
-      north: 34.24350,
-      south: 34.24295,
-      east:  -118.52858,
-      west:  -118.52950
+      north: 34.24273,
+      south: 34.24213,
+      east:  -118.53040,
+      west:  -118.53120
     }
   },
   {
     // bookstore (e3)
     name: "The Bookstore",
     bounds: {
-      north: 34.24130,
-      south: 34.24065,
-      east:  -118.52835,
-      west:  -118.52940
+      north: 34.23811,
+      south: 34.23751,
+      east:  -118.52477,
+      west:  -118.52557
     }
   },
   {
     // bayramian (c3)
     name: "Bayramian Hall",
     bounds: {
-      north: 34.24390,
-      south: 34.24330,
-      east:  -118.52920,
-      west:  -118.53010
+      north: 34.24092,
+      south: 34.24032,
+      east:  -118.52922,
+      west:  -118.53002
     }
   },
   {
     // jacaranda (e2)
     name: "Jacaranda Hall",
     bounds: {
-      north: 34.24190,
-      south: 34.24130,
-      east:  -118.52600,
-      west:  -118.52700
+      north: 34.24159,
+      south: 34.24099,
+      east:  -118.52676,
+      west:  -118.52756
     }
   },
   {
     // manzanita (d2)
     name: "Manzanita Hall",
     bounds: {
-      north: 34.24295,
-      south: 34.24235,
-      east:  -118.52590,
-      west:  -118.52690
+      north: 34.23815,
+      south: 34.23755,
+      east:  -118.52931,
+      west:  -118.53011
     }
   }
 ];
@@ -64,7 +64,7 @@ var elapsedSeconds = 0;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center:            { lat: 34.2424, lng: -118.5280 },
+    center:            { lat: 34.2403, lng: -118.5283 },
     zoom:              17,
     disableDefaultUI:  true,
     gestureHandling:   "none",   // disables all pan/zoom gestures
@@ -120,13 +120,13 @@ function showQuestion() {
 function handleGuess(latLng) {
   var loc = LOCATIONS[currentQ];
 
-  // defines rectangular hit area for the building
+  // latlngbounds defines the rectangular hit area for the building
   var bounds = new google.maps.LatLngBounds(
     new google.maps.LatLng(loc.bounds.south, loc.bounds.west),
     new google.maps.LatLng(loc.bounds.north, loc.bounds.east)
   );
 
-  // true if clicked point falls inside the bounds
+  // true if the clicked point falls inside the bounds
   var isCorrect = bounds.contains(latLng);
 
   // rectangle — green = correct , red = wrong
@@ -138,7 +138,7 @@ function handleGuess(latLng) {
     strokeColor:  isCorrect ? "#00b894" : "#d63031",
     strokeWeight: 2
   });
-  drawnRects.push(rect); // saved to remove on restart
+  drawnRects.push(rect); // saved to them on restart
   if (isCorrect) score++;
 
   addLogEntry(loc.name, isCorrect);
@@ -168,7 +168,7 @@ function addLogEntry(name, correct) {
 function triggerFlash(correct) {
   var $f = $("#flash");
   $f.removeClass("correct-flash wrong-flash");
-  $f[0].offsetWidth; // force reflow so css animation restarts even if same class re-added
+  $f[0].offsetWidth; //forces reflow css animation restarts even if readd
   $f.addClass(correct ? "correct-flash" : "wrong-flash");
 }
 
@@ -214,7 +214,7 @@ function getHighScores() {
   try {
     return JSON.parse(localStorage.getItem("csunQuizHS")) || [];
   } catch (e) {
-    return []; // returns empty array if localstorage data is corrupted
+    return []; //returns empty array if localstorage data is corrupted
   }
 }
 
@@ -246,7 +246,7 @@ $(document).ready(function () {
   renderHighScores();
 
   $("#restart-btn").on("click", function () {
-    $.each(drawnRects, function (i, r) { r.setMap(null); }); // rmove rectangles from map
+    $.each(drawnRects, function (i, r) { r.setMap(null); }); // removes rectangles from map
     drawnRects = [];
 
     currentQ  = 0;
